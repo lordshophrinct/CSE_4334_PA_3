@@ -1,0 +1,32 @@
+CSE4334/5334 Data Mining
+Fall 2018
+Grading rubrics for Programming Assignment 3 (P3):
+
+(1) Basics : 35% 
+
+Your submission will be evaluated on whether it can accomplish the given tasks. Note that, in order to get all these 35 points, your code must return completely correct results, for the given dataset and for any dataset. 
+
+(2) Execution efficiency: 50% 
+
+50 points: Among the most efficient implementation in the class AND effificency on par wwith the "Expected Output" in P3.ipynb
+45 points: stronger performance than 85% of the class AND effificency not much verse than results in "Expected Output"
+35 points: stronger performance than 70% of the class AND clearly less efficient than results in "Expected Output"
+25 points: average performance in the class AND significantly less efficient than results in "Expected Output" 
+15 points: weaker performance than 70% of the class 
+5 points: weaker performance than 85% of the class
+0 points: very poor performance 
+
+(3) Quality--clarity, organization, modularity, comments : 15%
+
+Follow good coding standards to make your program easy to understand by others and easy to maintain/extend. DO NOT provide documents in PDF/Word files. Instead, provide sufficient comments in your code and make it self-explaining. 
+
+High mark  : 15 points
+Medium mark : 10 points
+Low mark : 5 points
+Very poor: 0 points
+
+(4) Total score (100 points)
+
+Your score will be calculated from the individual break-ups using the following equation:
+
+Basics + Efficiency + Quality
