@@ -28,12 +28,16 @@ def readfiles():
 
 def prominent_streaks(sequences):
     #Your algorithm goes here
-    streaks = []
+    streaks = [] # Streaks should be a list of strings
+
+    # Compute the LPS streaks for each player
+    # Add all the LPS streaks into one giant list
+    # Do the skyline algorithm to calculate the final streaks
     
-    for player, scores in sequences.items():
-        print(player)
-        print(scores)
-        print()
+    # for player, scores in sequences.items():
+    #     print(player)
+    #     print(scores)
+    #     print()
 
     return streaks
     #You have the freedom to define any other functions that you deem necessary. 

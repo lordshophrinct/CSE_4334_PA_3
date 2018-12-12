@@ -3,17 +3,28 @@
 import random
 import time
 
+# Data Object for keeping track of streaks
 class Streak:
-    def __init__(self, start, end, min_val):
-        self.l = start
-        self.r = end
-        self.v = min_val
+    def __init__(self, start, end, min_val, playerID):
+        self.l = start # start index
+        self.r = end # ending index
+        self.v = min_val # minimum value
+        self.playerID = playerID # the player id
     
+    # Get the string representation of this streak in the form:
+    # <'{PlayerID}': [{startIndex}, {endIndex}], {min value}>
     def getString(self):
-        return "<[{0}, {1}], {2}>".format(self.l, self.r, self.v)
+        return "<{0}: [{1}, {2}], {3}>".format(self.playerID, self.l, self.r, self.v)
 
+    # Get the data object
+    # ('{PlayerID}', {startIndex}, {length}, {min value})
+    def getData(self):
+        return (self.playerID, self.l, self.getLength(), self.v)
+
+    # Get the Length of this streak
     def getLength(self):
         return self.r - self.l
+
 
 # Determine if 2 streaks dominate each other
 # Return 0 if neither dominates, 1 if a dominates,
@@ -42,7 +53,7 @@ def dominates(a, b):
 
 # Find the LPS streaks from a set of points
 # (Note that it uses indeces starting at 0)
-def LPS(vals):
+def LPS(vals, playerID):
     lps_streaks = []
     streak_list = []
 
@@ -91,11 +102,11 @@ def LPS(vals):
         # If every streak had a min value less than the point,
         # we need to start a new streak from this point.
         if(max_index is None):
-            streak_list.append(Streak(i, i, current))
+            streak_list.append(Streak(i, i, current, playerID))
         # Otherwise, make a new streak going to this point
         else:
             l = streak_list[max_index].l
-            streak_list.append(Streak(l, i, current))
+            streak_list.append(Streak(l, i, current, playerID))
         
         # Remove all the streaks that we marked.
         # Source for removing multiple values:
@@ -154,7 +165,8 @@ def randList(bottom, top, size):
 
 """ Main """
 vals = [3, 1, 7, 7, 2, 5, 4, 6, 7, 3]
-streaks = LPS(vals)
+skylines = []
+streaks = LPS(vals, "Christopher")
 
 for s in streaks:
     print(s.getString())
@@ -163,4 +175,6 @@ print()
 streaks = Skyline(streaks)
 
 for s in streaks:
-    print(s.getString())
+    skylines.append(s.getData())
+
+print(skylines)
