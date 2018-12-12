@@ -117,8 +117,23 @@ def Skyline(candidates):
     for i in range(0, len(candidates)):
         to_remove = []
         result = True
+
         for j in range(0, len(skylines)):
-            pass
+            dom = dominates(candidates[i], skylines[j])
+            if dom is 0:
+                continue
+            elif dom is 1:
+                to_remove.append(j)
+            elif dom is -1:
+                result = False
+                break
+        
+        if result is True:
+            skylines.append(candidates[i])
+        
+        for index in sorted(to_remove, reverse=True):
+            skylines.pop(index)
+
     return skylines
 
 
@@ -138,22 +153,14 @@ def randList(bottom, top, size):
     return values
 
 """ Main """
-# vals = randList(0, 100, 1000)
-# streaks = LPS(vals)
+vals = [3, 1, 7, 7, 2, 5, 4, 6, 7, 3]
+streaks = LPS(vals)
 
-# for s in streaks:
-#     print(s.getString())
+for s in streaks:
+    print(s.getString())
+print()
 
-a = Streak(2, 50, 1)
-b = Streak(0, 1, 100)
+streaks = Skyline(streaks)
 
-result = dominates(a,b)
-
-if result is 0:
-    print(a.getString() + " does not dominate " + b.getString())
-
-elif result is 1:
-    print(a.getString() + " dominates " + b.getString())
-
-elif result is -1:
-    print(a.getString() + " is dominated by " + b.getString())
+for s in streaks:
+    print(s.getString())
