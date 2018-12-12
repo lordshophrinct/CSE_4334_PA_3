@@ -29,8 +29,13 @@ def readfiles():
 def prominent_streaks(sequences):
     #You algorithm goes here
     streaks = []
-    for pt in sequences:
-        print(pt)
+    
+    for player, scores in sequences.items():
+        print(player)
+        print(scores)
+        print()
+
+    return streaks
     #You have the freedom to define any other functions that you deem necessary. 
     
     
