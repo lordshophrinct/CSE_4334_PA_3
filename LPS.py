@@ -1,5 +1,8 @@
 # Local prominent streak algorithm.
 
+import random
+import time
+
 class Streak:
     def __init__(self, start, end, min_val):
         self.l = start
@@ -13,6 +16,7 @@ class Streak:
         return self.r - self.l
 
 # Find the LPS streaks from a set of points
+# (Note that it uses indeces starting at 0)
 def LPS(vals):
     lps_streaks = []
     streak_list = []
@@ -68,7 +72,9 @@ def LPS(vals):
             l = streak_list[max_index].l
             streak_list.append(Streak(l, i, current))
         
-        # Remove all the streaks that we marked
+        # Remove all the streaks that we marked.
+        # Source for removing multiple values:
+        # https://stackoverflow.com/questions/11303225/how-to-remove-multiple-indexes-from-a-list-at-the-same-time
         for item in sorted(to_remove, reverse=True):
             streak_list.pop(item)
 
@@ -79,10 +85,28 @@ def LPS(vals):
 
     return lps_streaks
 
+
+# Get a random list of integers
+def randList(bottom, top, size):
+
+    if bottom > top:
+        temp = bottom
+        bottom = top
+        top = temp
+
+    values = []
+    for i in range(0, size):
+        x = random.randint(bottom, top)
+        values.append(x)
+    return values
+
 """ Main """
-vals = [3, 1, 7, 7, 7, 2, 5, 4, 6, 7, 3]
-vals = [1, 2, 3, 4, 5, 6, 7, 8, 9, 100, 0, 2, 1]
+start_time = int(round(time.time() * 1000))
+vals = randList(0, 100, 1000000)
 streaks = LPS(vals)
 
-for s in streaks:
-    s.printStreak()
+# for s in streaks:
+#     s.printStreak()
+
+end_time = int(round(time.time() * 1000))
+print("Elapsed time: {0} milliseconds.".format(end_time - start_time))
