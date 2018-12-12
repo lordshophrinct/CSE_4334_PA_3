@@ -53,8 +53,7 @@ def dominates(a, b):
 
 # Find the LPS streaks from a set of points
 # (Note that it uses indeces starting at 0)
-def LPS(vals, playerID):
-    lps_streaks = []
+def LPS(vals, playerID, lps_streaks):
     streak_list = []
 
     # (With streaks as s and next value as k)
@@ -119,8 +118,6 @@ def LPS(vals, playerID):
     for item in streak_list:
         lps_streaks.append(item)
 
-    return lps_streaks
-
 
 # Find the Skyline points from a list of candidate Streaks
 def Skyline(candidates):
@@ -165,14 +162,17 @@ def randList(bottom, top, size):
 
 """ Main """
 vals = [3, 1, 7, 7, 2, 5, 4, 6, 7, 3]
+vals2 = [10, 3, 4, 5, 6, 7, 8, 9, 10]
 skylines = []
-streaks = LPS(vals, "Christopher")
+lps_streaks = []
+LPS(vals, "Christopher", lps_streaks)
+LPS(vals2, "Alex", lps_streaks)
 
-for s in streaks:
+for s in lps_streaks:
     print(s.getString())
 print()
 
-streaks = Skyline(streaks)
+streaks = Skyline(lps_streaks)
 
 for s in streaks:
     skylines.append(s.getData())
