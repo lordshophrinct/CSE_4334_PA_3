@@ -9,11 +9,36 @@ class Streak:
         self.r = end
         self.v = min_val
     
-    def printStreak(self):
-        print("<[{0}, {1}], {2}>".format(self.l, self.r, self.v))
+    def getString(self):
+        return "<[{0}, {1}], {2}>".format(self.l, self.r, self.v)
 
     def getLength(self):
         return self.r - self.l
+
+# Determine if 2 streaks dominate each other
+# Return 0 if neither dominates, 1 if a dominates,
+# and -1 if b dominates
+def dominates(a, b):
+    result = 0
+    
+    # One streak dominates the other if:
+    # its length is greater and its min value is at least equal
+    # OR if its length is at least equal and its min value is greater
+
+    if ( a.getLength() > b.getLength() ) and ( a.v >= b.v ):
+        result = 1
+    
+    elif ( a.v > b.v ) and ( a.getLength() >= b.getLength() ):
+        result = 1
+
+    elif ( b.getLength() > a.getLength() ) and ( b.v >= a.v ):
+        result = -1
+
+    elif ( b.v > a.v ) and ( b.getLength() >= a.getLength() ):
+        result = -1
+
+    return result
+        
 
 # Find the LPS streaks from a set of points
 # (Note that it uses indeces starting at 0)
@@ -86,6 +111,18 @@ def LPS(vals):
     return lps_streaks
 
 
+# Find the Skyline points from a list of candidate Streaks
+def Skyline(candidates):
+    skylines = []
+    for i in range(0, len(candidates)):
+        to_remove = []
+        result = True
+        for j in range(0, len(skylines)):
+            pass
+    return skylines
+
+
+
 # Get a random list of integers
 def randList(bottom, top, size):
 
@@ -101,12 +138,22 @@ def randList(bottom, top, size):
     return values
 
 """ Main """
-start_time = int(round(time.time() * 1000))
-vals = randList(0, 100, 1000000)
-streaks = LPS(vals)
+# vals = randList(0, 100, 1000)
+# streaks = LPS(vals)
 
 # for s in streaks:
-#     s.printStreak()
+#     print(s.getString())
 
-end_time = int(round(time.time() * 1000))
-print("Elapsed time: {0} milliseconds.".format(end_time - start_time))
+a = Streak(2, 50, 1)
+b = Streak(0, 1, 100)
+
+result = dominates(a,b)
+
+if result is 0:
+    print(a.getString() + " does not dominate " + b.getString())
+
+elif result is 1:
+    print(a.getString() + " dominates " + b.getString())
+
+elif result is -1:
+    print(a.getString() + " is dominated by " + b.getString())
