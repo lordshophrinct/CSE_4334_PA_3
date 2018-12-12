@@ -23,7 +23,7 @@ class Streak:
 
     # Get the Length of this streak
     def getLength(self):
-        return self.r - self.l
+        return self.r - self.l + 1 # I was getting an off-by-one error
 
 
 # Determine if 2 streaks dominate each other

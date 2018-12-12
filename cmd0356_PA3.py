@@ -21,7 +21,9 @@ class Streak:
 
     # Get the Length of this streak
     def getLength(self):
-        return self.r - self.l
+        # For some reason, I was getting an off-by-one error compared
+        # with the sample results. Adding one fixed the issue.
+        return self.r - self.l + 1
 
 
 # Determine if 2 streaks dominate each other
