@@ -1,3 +1,20 @@
+# Christopher Downing
+# 1001120356
+# CSE 4344 Programming Assignment 3
+# December 12, 2018
+
+# The basic concept for the program is explained:
+# 
+# For each player, find the Local Prominent Streaks using
+# the LPS algorithm and add them to a master list.
+# 
+# Then use the Skyline algorithm on the remaining streaks
+# to get the global prominent streaks. Return those.
+# 
+# 
+# On my machine, finding the prominent streaks usually
+# takes about 2.5 seconds.
+
 import pandas as pd
 import time
 
@@ -122,23 +139,31 @@ def LPS(vals, playerID, lps_streaks):
 # Find the Skyline points from a list of candidate Streaks
 def Skyline(candidates):
     skylines = []
+
+    # Maintain a master list of skylines.
+    # For every candidate, compare it with the current skyline list.
+    # Any candidate that is undominated gets added.
+    # Any skyline streak that is dominated gets removed.
+    # The remaining skyline list is returned.
     for i in range(0, len(candidates)):
         to_remove = []
         result = True
 
         for j in range(0, len(skylines)):
             dom = dominates(candidates[i], skylines[j])
-            if dom is 0:
+            if dom is 0: # Neither dominates
                 continue
-            elif dom is 1:
-                to_remove.append(j)
-            elif dom is -1:
+            elif dom is 1: # The candidate dominates
+                to_remove.append(j) # We'll remove the fake skyline streak from the list
+            elif dom is -1: # The skyline point dominates
                 result = False
                 break
         
+        # If the candidate is undominated, add it to the list.
         if result is True:
             skylines.append(candidates[i])
         
+        # If any skyline point was dominated, remove it.
         for index in sorted(to_remove, reverse=True):
             skylines.pop(index)
 
@@ -178,15 +203,19 @@ def prominent_streaks(sequences):
     # Add all the LPS streaks into one giant list
     # Do the skyline algorithm to calculate the final streaks
     
+    # First, find the Local Prominent Streaks for each player
     lps_streaks = []
     for player, scores in sequences.items():
         LPS(scores, player, lps_streaks)
     
+    # Next, get the global prominent streaks from the LPS list
     skylines = Skyline(lps_streaks)
 
+    # Correctly format the prominent streak objects' data into a list.
     for s in skylines:
         streaks.append(s.getData())
 
+    # Return the list of prominent streaks
     return streaks
     #You have the freedom to define any other functions that you deem necessary. 
     
