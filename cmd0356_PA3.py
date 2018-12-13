@@ -73,7 +73,7 @@ def dominates(a, b):
 def LPS(vals, playerID, lps_streaks):
     streak_list = []
 
-    # (With streaks as s and next value as k)
+    # (With streaks as s, min value as v, and next value as k)
     # For every s with v < k, continue to extend
     # For every s with v > k, s is an LPS
     # For the longest s with v >= k, add a new streak from s.l to this point
@@ -89,19 +89,19 @@ def LPS(vals, playerID, lps_streaks):
             s = streak_list[j] # keep track of the current streak
 
             # If the min value of s is less than the current point,
-            # we should continue to expand s to the right
+            # we should continue to expand s to the right.
             if(s.v < current):
                 s.r = i
                 continue
 
             # If the min value of s is greater than the current point,
-            # s is a local prominent streak
+            # s is a local prominent streak.
             elif(s.v > current):
                 lps_streaks.append(s)
                 to_remove.append(j) # we will need to remove this s
             
             # If the min value of s is equal to the current point,
-            # we will need to remove s from the list of streaks
+            # we will need to remove s from the list of streaks.
             else:
                 to_remove.append(j)
 
@@ -131,7 +131,7 @@ def LPS(vals, playerID, lps_streaks):
             streak_list.pop(item)
 
     # After the algorithm is done, any streaks that we're still keeping
-    # track of need to be added to the LPS list
+    # track of need to be added to the LPS list.
     for item in streak_list:
         lps_streaks.append(item)
 
@@ -197,15 +197,18 @@ def readfiles():
 
 def prominent_streaks(sequences):
     #Your algorithm goes here
-    streaks = [] # Streaks
 
     # Compute the LPS streaks for each player
     # Add all the LPS streaks into one giant list
     # Do the skyline algorithm to calculate the final streaks
+
+    streaks = [] # the data that will be returned
     
     # First, find the Local Prominent Streaks for each player
     lps_streaks = []
     for player, scores in sequences.items():
+        # Each iteration of LPS will add a player's local prominent streaks
+        # to the lps_streaks list.
         LPS(scores, player, lps_streaks)
     
     # Next, get the global prominent streaks from the LPS list
@@ -217,6 +220,7 @@ def prominent_streaks(sequences):
 
     # Return the list of prominent streaks
     return streaks
+
     #You have the freedom to define any other functions that you deem necessary. 
     
     
