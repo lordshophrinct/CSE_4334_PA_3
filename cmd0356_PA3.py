@@ -1,6 +1,6 @@
 # Christopher Downing
 # 1001120356
-# CSE 4344 Programming Assignment 3
+# CSE 4334 Programming Assignment 3
 # December 12, 2018
 
 # The basic concept for the program is explained:
